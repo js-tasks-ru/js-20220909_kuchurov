@@ -4,5 +4,9 @@
  * @returns {*[]} - the new array with uniq values
  */
 export function uniq(arr) {
-
+  if (!arr) return []
+  return arr.reduce((unique, item) => {
+    if (!unique.includes(item)) unique.push(item)
+    return unique
+  }, [])
 }
