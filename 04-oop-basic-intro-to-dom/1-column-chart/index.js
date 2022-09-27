@@ -17,13 +17,14 @@ export default class ColumnChart {
     this.renderChartBody()
   }
 
-  update(newData) {
+  update(newData = []) {
     this.data = newData
     this.renderChartBody()
   }
 
   destroy() {
-
+    this.remove()
+    this.element = null
   }
 
   remove() {
@@ -75,14 +76,12 @@ export default class ColumnChart {
   }
 
   getChartItems() {
-    let items = ''
-    let max = this.getMaxOfArray(this.data)
-    this.data.forEach((value) => {
-      let variable = Math.floor((this.chartHeight / max) * value)
-      let percent = Math.round((100 / max) * value)
-      items += `<div style="--value: ${variable}" data-tooltip="${percent}%"></div>`
-    })
-    return items
+    const max = this.getMaxOfArray(this.data)
+    return this.data.map((value) => {
+      const variable = Math.floor((this.chartHeight / max) * value)
+      const percent = Math.round((100 / max) * value)
+      return `<div style="--value: ${variable}" data-tooltip="${percent}%"></div>`
+    }).join('')
   }
 
   // >>>>> Helpers <<<<<
