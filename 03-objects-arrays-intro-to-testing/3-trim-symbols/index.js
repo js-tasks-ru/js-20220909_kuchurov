@@ -5,5 +5,26 @@
  * @returns {string} - the new string without extra symbols according passed size
  */
 export function trimSymbols(string, size) {
+  if (size === 0) return ''
+  if (size === undefined) return string
 
+  const result = []
+  let count = 0
+
+  for (const char of string) {
+    if (result.at(-1) === char) {
+      if (count < size) {
+        result.push(char)
+        count++
+      }
+    } else {
+      count = 1
+      result.push(char)
+    }
+  }
+
+  return result.join('')
+
+  // let regexp = new RegExp('(?=(.))\\1{' + size + ',}', 'g')
+  // return string.replace(regexp, (m, a) => a.repeat(size))
 }
